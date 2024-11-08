@@ -24,7 +24,7 @@ export const Product = () => {
    
             {/* <p>{JSON.stringify(movies)}</p> */}
           
-                 <table class="table table-bordered">
+                 <table class="table caption-top">
                  <thead>
                    <tr>
                      <th>Product</th>
@@ -43,7 +43,11 @@ export const Product = () => {
                             <td>{product.description}</td>
                             <td><Link to={"/product/" + product._id}>
                                     <h3>open</h3>
-                                </Link></td>
+                                </Link>
+                                <Link to={product._id+"/edit" }>
+                                    <h3>edit</h3>
+                                </Link>
+                                </td>
                           </tbody>
                       
                         )

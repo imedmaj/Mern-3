@@ -23,7 +23,7 @@ export const Creat = () => {
         axios.post("http://localhost:5000/api/product/", tempObj)
             .then(res => {
                 console.log("✅✅✅✅✅✅✅✅✅✅", res.data)
-                navigate("/")
+                navigate('/')
             })
             .catch(err => {
                 console.log("❌❌❌❌", err.response.data.errors.title.message)
