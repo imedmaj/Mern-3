@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import axios from "axios"
 import { redirect, useNavigate } from 'react-router-dom'
+import Product from './Product'
 
 
 export const Creat = () => {
@@ -10,7 +11,7 @@ export const Creat = () => {
     const [description,SetDescription]=useState()
 
     const submitHandler = (e) => {
-        e.preventDefault()
+        
         console.log("cool")
         const tempObj = {
             product,
@@ -62,6 +63,7 @@ export const Creat = () => {
             </div>  
             <button type="submit" class="btn btn-secondary" >Creation</button> 
         </form >
+        <Product/>
    
 
     </div>
