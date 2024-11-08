@@ -1,5 +1,6 @@
 // the controller does the CRUD for the DB
 // import the model here
+const { message } = require("statuses")
 const Jokes = require("../models/model.jokes")
 
 //? READ ALL 
@@ -26,13 +27,54 @@ module.exports.findOneSingleJokes = (req, res) => {
 }
 //? CREATE
 module.exports.createNewJokes = (req, res) => {
-    Jokes.create(req.body)
-        .then(newlyCreatedJokes => {
-            res.json({ Jokes: newlyCreatedJokes })
-        })
-        .catch((err) => {
-            res.status(400).json(err)
-        });
+       // Check if a joke with the same setup already exists
+       Jokes.findOne({ setup: req.body.setup })
+       .then(existingSetup => {
+           if (existingSetup) {
+               return res.status(400).json({
+                //    success: false,
+                   message: "This setup already exists",
+                   error : "can not be recreated" 
+               });
+           }
+
+           // If no duplicate, create the new joke
+           Jokes.create(req.body)
+               .then(newlyCreatedJokes => {
+                //    res.json({ Jokes: newlyCreatedJokes });
+                return res.status(200).json({
+                    success: true,
+                    message: "jokes created ",
+                      
+                });
+
+               })
+               .catch((err) => {
+                   res.status(400).json(err);
+               });
+       })
+       .catch(err => {
+           res.status(500).json({ message: "Server error", error: err.message });
+       });
+
+
+    // Jokes.findOne({setup:req.body.setup})
+    // .then(existingSetup=>{
+    //     if(existingSetup){
+    //         return  res.status(400).json({
+    //             success : false, 
+    //             message:"thes setup all ready exist",             
+                
+    //         })
+    //     }
+    // })
+    // Jokes.create(req.body)
+    //     .then(newlyCreatedJokes => {
+    //         res.json({ Jokes: newlyCreatedJokes })
+    //     })
+    //     .catch((err) => {
+    //         res.status(400).json(err)
+    //     });
 }
 
 module.exports.updateExistingJokes = (req, res) => {

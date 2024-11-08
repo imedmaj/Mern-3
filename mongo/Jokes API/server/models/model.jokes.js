@@ -6,6 +6,7 @@ const jokesSchema = new mongoose.Schema({
     setup: {
         type: String,
         required: [true, "{PATH} is requires"],      
+        unique:true
     },
     punchline: {
         type: String,
