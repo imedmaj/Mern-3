@@ -1,11 +1,12 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams } from "react-router-dom"
+import { redirect, useNavigate } from 'react-router-dom'
 
 export const OneProduct = () => {
     const [product,setProduct]= useState([])
     const { id } = useParams()
-   
+    const navigate = useNavigate()   
 
     useEffect(() => {
         axios.get(`http://localhost:5000/api/product/${id}`)
@@ -16,6 +17,7 @@ export const OneProduct = () => {
         })
         .catch(err => {
             console.log(err)
+            navigate('/')
         })
 }, [id])
 

@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react'
-import Axios from "axios"
+import axios from "axios"
 import { Link } from "react-router-dom"
 
 export const Product = () => {
   const [product,setProduct]= useState([])
   useEffect(() => {
-    Axios.get("http://localhost:5000/api/product/")
+    axios.get("http://localhost:5000/api/product/")
         .then(res => {
             console.log(res.data)
             setProduct(res.data)
         })
         .catch(err => {
             console.log(err)
+            navigate('/')
         })
 }, [])
 
